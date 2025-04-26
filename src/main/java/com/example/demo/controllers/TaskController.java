@@ -36,7 +36,11 @@ public class TaskController {
     @ExecutionTime
     @ExceptionHandling
     public ResponseEntity<Task> getTask(@PathVariable Long id) {
-        return new ResponseEntity<>(taskService.findById(id), HttpStatus.OK);
+        Task task = taskService.findById(id);
+        if (task == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
     @PostMapping
