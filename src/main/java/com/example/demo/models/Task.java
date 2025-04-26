@@ -10,6 +10,7 @@ import lombok.Data;
 public class Task {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -20,4 +21,10 @@ public class Task {
 
     @Column(nullable = false)
     private Long userId;
+
+    @Override
+    public String toString() {
+        return "Task{id=" + id + ", description=" + description + ", " +
+                "title=" + title + ", userId=" + userId + "}";
+    }
 }
