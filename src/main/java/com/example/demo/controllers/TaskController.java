@@ -6,10 +6,8 @@ import com.example.demo.aspects.annotations.ExceptionHandling;
 import com.example.demo.aspects.annotations.ExecutionTime;
 import com.example.demo.aspects.annotations.ResultHandling;
 import com.example.demo.dto.TaskDTO;
-import com.example.demo.models.Task;
 import com.example.demo.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,45 +26,32 @@ public class TaskController {
 
     @GetMapping
     @ExecutionTime
-    public List<Task> getTasks() {
-        return taskService.findAll();
+    public List<TaskDTO> getTasks() {
+        return taskService.findAll().stream()
+                .map(TaskDTO::new).toList();
     }
 
     @GetMapping("/{id}")
     @ExecutionTime
     @ExceptionHandling
-    public ResponseEntity<Task> getTask(@PathVariable Long id) {
-        Task task = taskService.findById(id);
-        if (task == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(task, HttpStatus.OK);
+    public TaskDTO getTask(@PathVariable Long id) {
+        return new TaskDTO(taskService.findById(id));
     }
 
     @PostMapping
     @ExecutionTime
     @ResultHandling
     @BeforeLog
-    public ResponseEntity<String> createTask(@RequestBody TaskDTO taskDTO) {
-        Task task = new Task();
-        task.setDescription(taskDTO.description());
-        task.setTitle(taskDTO.title());
-        task.setUserId(taskDTO.userId());
-        taskService.save(task);
-        return ResponseEntity.ok("Task created");
+    public void createTask(@RequestBody TaskDTO taskDTO) {
+        taskService.save(taskDTO);
     }
 
 
     @PutMapping("/{id}")
     @ExecutionTime
     @ExceptionHandling
-    public ResponseEntity<String> updateTask(@PathVariable long id, @RequestBody TaskDTO taskDTO) {
-        Task task = taskService.findById(id);
-        task.setDescription(taskDTO.description());
-        task.setTitle(taskDTO.title());
-        task.setUserId(taskDTO.userId());
-        taskService.save(task);
-        return ResponseEntity.ok("Task updated");
+    public void updateTask(@PathVariable long id, @RequestBody TaskDTO taskDTO) {
+        taskService.update(id, taskDTO);
     }
 
     @DeleteMapping("/{id}")

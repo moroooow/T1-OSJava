@@ -1,23 +1,23 @@
 package com.example.demo.exceptions;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(TaskNotFoundException.class)
-    public ResponseEntity<ApiError> handleTaskNotFound(TaskNotFoundException ex) {
-        ApiError error = new ApiError("TASK_NOT_FOUND", ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleTaskNotFound(TaskNotFoundException ex) {
+        return new ApiError("TASK_NOT_FOUND", ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleGenericException() {
-        ApiError error = new ApiError("INTERNAL_ERROR", "Unexpected error occurred");
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ApiError handleGenericException() {
+        return new ApiError("INTERNAL_ERROR", "Unexpected error occurred");
     }
 }
 
