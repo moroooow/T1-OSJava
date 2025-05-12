@@ -24,10 +24,10 @@ public class LogAspect {
         return obj;
     }
 
-    @AfterThrowing("@annotation(com.example.demo.aspects.annotations.ExceptionHandling)")
-    public void afterThrowing(JoinPoint joinPoint) {
-        log.error("Exception in method {}", joinPoint.getSignature());
-
+    @AfterThrowing(value = "@annotation(com.example.demo.aspects.annotations.ExceptionHandling)",
+        throwing = "ex")
+    public void afterThrowing(JoinPoint joinPoint, Exception ex)  {
+        log.error("Exception in method {}, cause = {}", joinPoint.getSignature(),ex.getMessage());
     }
 
     @AfterReturning(

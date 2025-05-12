@@ -46,7 +46,6 @@ public class TaskController {
         taskService.save(taskDTO);
     }
 
-
     @PutMapping("/{id}")
     @ExecutionTime
     @ExceptionHandling
