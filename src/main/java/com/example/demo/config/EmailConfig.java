@@ -1,6 +1,8 @@
 package com.example.demo.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,28 +11,27 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
 
 @Configuration
+@ConfigurationProperties(prefix = "spring.mail")
+@Getter
+@Setter
 public class EmailConfig {
 
-    @Value("${spring.mail.username}")
-    private String mailUsername;
+    private String username;
 
-    @Value("${spring.mail.password}")
     private String password;
 
-    @Value("${spring.mail.host}")
-    private String mailHost;
+    private String host;
 
-    @Value("${spring.mail.port}")
-    private int mailPort;
+    private int port;
 
     @Bean
     public JavaMailSender getJavaMailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
-        mailSender.setHost(mailHost);
-        mailSender.setPort(mailPort);
+        mailSender.setHost(host);
+        mailSender.setPort(port);
 
-        mailSender.setUsername(mailUsername);
+        mailSender.setUsername(username);
         mailSender.setPassword(password);
 
         Properties props = mailSender.getJavaMailProperties();

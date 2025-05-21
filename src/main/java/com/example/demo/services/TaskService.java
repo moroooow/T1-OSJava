@@ -39,6 +39,8 @@ public class TaskService {
     public void update(long id, TaskDTO taskDTO) {
         Task task = this.findById(id);
         Task temp = taskMapper.toEntity(taskDTO);
+        temp.setId(id);
+        taskRepository.save(temp);
 
         if(!task.getStatus().equals(temp.getStatus())) {
             KafkaTaskUpdatedDTO kafkaDto = new KafkaTaskUpdatedDTO(
@@ -49,8 +51,6 @@ public class TaskService {
             );
             kafkaProducer.send(kafkaDto);
         }
-        temp.setId(id);
-        taskRepository.save(temp);
     }
 
     public void delete(Long id) {
