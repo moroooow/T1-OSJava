@@ -8,7 +8,6 @@ import com.example.demo.aspects.annotations.ResultHandling;
 import com.example.demo.dto.TaskDTO;
 import com.example.demo.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,7 +45,6 @@ public class TaskController {
         taskService.save(taskDTO);
     }
 
-
     @PutMapping("/{id}")
     @ExecutionTime
     @ExceptionHandling
@@ -56,9 +54,8 @@ public class TaskController {
 
     @DeleteMapping("/{id}")
     @ExecutionTime
-    public ResponseEntity<String> deleteTask(@PathVariable long id) {
+    public void deleteTask(@PathVariable long id) {
         taskService.delete(id);
-        return ResponseEntity.ok("Task deleted");
     }
 
 }

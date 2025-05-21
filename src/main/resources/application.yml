@@ -5,3 +5,21 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     url: ${SPRING_DATASOURCE_URL}
+  mail:
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    test:
+      address: ${TEST_ADDRESS}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+
+kafka:
+  servers: ${KAFKA_SERVERS}
+  consumer:
+    group_id: ${CONSUMER_GROUP_ID}
+  topics:
+    task_updated: ${TASK_UPDATED}

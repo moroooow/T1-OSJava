@@ -1,13 +1,15 @@
 package com.example.demo.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "task")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
 
     @Id
@@ -22,6 +24,9 @@ public class Task {
 
     @Column(nullable = false)
     private Long userId;
+
+    @Column(nullable = false)
+    private String status;
 
     @Override
     public String toString() {
