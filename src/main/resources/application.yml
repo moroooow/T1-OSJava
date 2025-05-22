@@ -16,10 +16,14 @@ spring:
     hibernate:
       ddl-auto: update
 
-
 kafka:
   servers: ${KAFKA_SERVERS}
   consumer:
     group_id: ${CONSUMER_GROUP_ID}
   topics:
     task_updated: ${TASK_UPDATED}
+
+http:
+  logging:
+    enabled: false
+    level: debug

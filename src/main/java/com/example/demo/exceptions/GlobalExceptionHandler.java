@@ -1,11 +1,13 @@
 package com.example.demo.exceptions;
 
+import org.spiridonov.http.starter.annotations.HttpExceptionLoggable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@HttpExceptionLoggable
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(TaskNotFoundException.class)

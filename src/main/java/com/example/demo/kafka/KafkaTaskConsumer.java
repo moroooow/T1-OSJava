@@ -1,8 +1,6 @@
 package com.example.demo.kafka;
 
 
-import com.example.demo.aspects.annotations.BeforeLog;
-import com.example.demo.aspects.annotations.ExceptionHandling;
 import com.example.demo.dto.KafkaTaskUpdatedDTO;
 import com.example.demo.services.EmailService;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +23,6 @@ public class KafkaTaskConsumer {
             topics = "${kafka.topics.task_updated}",
             containerFactory = "taskUpdatedKafkaListenerContainerFactory"
     )
-    @BeforeLog
-    @ExceptionHandling
     public void listen(List<KafkaTaskUpdatedDTO> dtos, Acknowledgment ack) {
         log.info("я зашел в метод!");
         try{
