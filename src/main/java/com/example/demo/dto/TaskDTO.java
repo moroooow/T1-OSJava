@@ -1,11 +1,24 @@
 package com.example.demo.dto;
 
 import com.example.demo.models.Task;
-import lombok.Builder;
+import lombok.*;
 
 @Builder
-public record TaskDTO(String title, String description, String status, Long userId) {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class TaskDTO {
+
+    private String title;
+    private String description;
+    private String status;
+    private Long userId;
+
     public TaskDTO(Task task){
-        this(task.getTitle(), task.getDescription(),task.getStatus(),task.getUserId());
+        this.title = task.getTitle();
+        this.description = task.getDescription();
+        this.status = task.getStatus();
+        this.userId = task.getUserId();
     }
 }

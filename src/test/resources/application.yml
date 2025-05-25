@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: demo
+  mail:
+    host: localhost
+    port: 3025
+    username: test
+    password: test
+    properties.mail.smtp.auth: true
+    ssl.enabled: false
+    test-connection: true
+    test:
+      address: test@example.com
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+http:
+  logging:
+    enabled: true
+    level: debug

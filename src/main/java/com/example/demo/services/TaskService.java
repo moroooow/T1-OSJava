@@ -7,6 +7,7 @@ import com.example.demo.kafka.KafkaProducer;
 import com.example.demo.mapper.TaskMapper;
 import com.example.demo.models.Task;
 import com.example.demo.repositories.TaskRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,11 @@ public class TaskService {
 
     public Task findById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
+    }
+
+    public Task findByTitle(String title) {
+        return taskRepository.findByTitle(title)
+                .orElseThrow(() -> new EntityNotFoundException("Entity not Found"));
     }
 
     public void save(TaskDTO taskDTO) {

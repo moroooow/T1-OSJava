@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 public class TaskMapper {
     public Task toEntity(TaskDTO taskDTO) {
          return Task.builder()
-                .title(taskDTO.title())
-                .description(taskDTO.description())
-                .status(taskDTO.status())
-                .userId(taskDTO.userId())
+                .title(taskDTO.getTitle())
+                .description(taskDTO.getDescription())
+                .status(taskDTO.getStatus())
+                .userId(taskDTO.getUserId())
                 .build();
     }
 

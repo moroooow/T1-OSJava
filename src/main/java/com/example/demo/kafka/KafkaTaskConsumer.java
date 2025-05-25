@@ -27,6 +27,7 @@ public class KafkaTaskConsumer {
         log.info("я зашел в метод!");
         try{
             for (KafkaTaskUpdatedDTO dto: dtos) {
+                log.debug("Start proceeding dtos: {}", dto);
                 String emailSubject = "Изменение статуса задачи";
                 String emailText = String.format(
                         """

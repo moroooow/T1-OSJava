@@ -2,23 +2,22 @@ package com.example.demo.controllers;
 
 
 import com.example.demo.dto.TaskDTO;
+import com.example.demo.mapper.TaskMapper;
 import com.example.demo.services.TaskService;
+import lombok.RequiredArgsConstructor;
 import org.spiridonov.http.starter.annotations.HttpLoggable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
+@RequiredArgsConstructor
 public class TaskController {
 
     private final TaskService taskService;
+    private final TaskMapper taskMapper;
 
-    @Autowired
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
 
     @GetMapping
     @HttpLoggable
@@ -30,7 +29,7 @@ public class TaskController {
     @GetMapping("/{id}")
     @HttpLoggable
     public TaskDTO getTask(@PathVariable Long id) {
-        return new TaskDTO(taskService.findById(id));
+        return taskMapper.toDto(taskService.findById(id));
     }
 
     @PostMapping
