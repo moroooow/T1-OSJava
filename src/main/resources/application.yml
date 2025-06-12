@@ -25,5 +25,5 @@ kafka:
 
 http:
   logging:
-    enabled: false
+    enabled: true
     level: debug

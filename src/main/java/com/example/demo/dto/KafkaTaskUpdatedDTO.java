@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class KafkaTaskUpdatedDTO {
     private String title;
     private String statusBefore;
